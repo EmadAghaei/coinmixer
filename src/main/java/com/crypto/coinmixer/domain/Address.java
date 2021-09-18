@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public abstract class Address {
     private String name;
-    private String ownerId;
+    private Long userId;
     private Instant accessDate;
     private String addressId;
 
@@ -20,13 +20,13 @@ public abstract class Address {
     }
 
 
-    public String getOwnerId() {
-        return ownerId;
+    public Long getUserId() {
+        return userId;
     }
 
 
-    public void setOwnerId(String ID) {
-        this.ownerId=ownerId;
+    public void setUserId(Long ID) {
+        this.userId = userId;
     }
 
 

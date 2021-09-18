@@ -24,7 +24,7 @@ public class UserDAO implements BaseDAO<User> {
         user1.setID("1234");
        SourceAddress sourceAddress= new SourceAddress();
        sourceAddress.setAddressId("eaghayi");
-       sourceAddress.setOwnerId("1234");
+       sourceAddress.setUserId(1234L);
         user1.setSrcAddress(sourceAddress);
         users.add(user1);
     }

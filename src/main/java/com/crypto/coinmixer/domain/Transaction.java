@@ -32,7 +32,7 @@ public abstract class Transaction {
         return destinationAddress;
     }
 
-    public void setDestinationAddressList(DestinationAddress destinationAddress) {
+    public void setDestinationAddress(DestinationAddress destinationAddress) {
         this.destinationAddress = destinationAddress;
     }
 

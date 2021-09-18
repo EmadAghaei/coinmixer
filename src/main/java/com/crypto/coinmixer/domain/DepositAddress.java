@@ -1,35 +1,29 @@
 package com.crypto.coinmixer.domain;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.crypto.coinmixer.dao.DepositDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Random;
 
 @Component
 public class DepositAddress extends Address {
     private  String name="Deposit Account";
-    private final String ownerId="Crypto.com";
+    private Long ownerId="Crypto.com";
+    @Autowired
+    private DepositDAO depositDAO;
 
-    @Value("#{${listOfStrings}}")
-    private List<String> addressIdsList;
+    //todo: update this implementation. It is for test. I assumed we only have several deposit. I use one of them randomly.
 
-
-    public String getOwnerId() {
+    public String getAddressId(){
+        return depositDAO.getAddressIdStringForTest();
+    }
+    public Long getUserId() {
         return ownerId;
     }
     public String getName() {
         return name;
     }
 
-    /**
-     * Assumed mixer has limited number of addresses. It can read them from a config file. If they are not
-     * limited number of file we need to read them from database.
-     * @return
-     */
-    public String getAddressId() {
-         return  addressIdsList.get(new Random().nextInt(addressIdsList.size()));
-    }
+
 
 
 

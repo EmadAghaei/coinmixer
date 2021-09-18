@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
@@ -23,10 +26,10 @@ public class AddressController {
 
     @GetMapping("/getMappedDeposit")
     public ResponseEntity getMappedDeposit(
-            @RequestParam Long userId, @RequestParam String srcAddress, @RequestParam String dstAddress) {
+            @RequestParam Long userId, @RequestParam String srcAddress, @RequestParam List<String> dstAddress, @RequestParam BigDecimal amount) {
         if (!userService.isValid(userId, srcAddress))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is wrong");
-        String depositAddress = addressService.getDepositAddress(userId, srcAddress, dstAddress);
+        String depositAddress = addressService.getDepositAddress(userId, srcAddress, dstAddress,amount);
         return depositAddress != null ? ResponseEntity.ok(depositAddress) : ResponseEntity.notFound().build();
     }
 }

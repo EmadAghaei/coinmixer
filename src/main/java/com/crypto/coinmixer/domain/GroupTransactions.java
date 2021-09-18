@@ -1,24 +1,26 @@
 package com.crypto.coinmixer.domain;
 
-import java.math.BigDecimal;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
-public class batchTransactions extends Transaction{
-    private List<DestinationAddress> destinationAddressList;
-    public List<DestinationAddress> getDestinationAddressList() {
+@Component
+public class GroupTransactions extends Transaction{
+    private List<String> destinationAddressList;
+    public List<String> getDestinationAddressList() {
         return destinationAddressList;
     }
 
-    public void setDestinationAddressList(List<DestinationAddress> destinationAddressList) {
+    public void setDestinationAddressList(List<String> destinationAddressList) {
         this.destinationAddressList = destinationAddressList;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof batchTransactions)) return false;
+        if (!(o instanceof GroupTransactions)) return false;
 
-        batchTransactions that = (batchTransactions) o;
+        GroupTransactions that = (GroupTransactions) o;
 
         return destinationAddressList.equals(that.destinationAddressList);
     }
