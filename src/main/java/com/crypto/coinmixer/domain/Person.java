@@ -1,18 +1,14 @@
 package com.crypto.coinmixer.domain;
 
-public abstract class Person{
-    private String userId;
+import org.springframework.stereotype.Component;
+
+@Component
+public abstract class Person {
+
     private String lastName;
     private String firstName;
     private boolean active;
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public boolean isActive() {
         return active;
@@ -21,18 +17,6 @@ public abstract class Person{
     public void setActive(boolean active) {
         this.active = active;
     }
-
-
-
-    public String getID() {
-        return userId;
-    }
-
-
-    public void setID(String userId) {
-        this.userId = userId;
-    }
-
 
     public String getFirstName() {
         return firstName;

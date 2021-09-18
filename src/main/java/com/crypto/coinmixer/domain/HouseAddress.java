@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class HouseAddress extends Address {
 
     private  String name="House Account";
-    private final Long userId =555L;
+    private final String userId ="coinMixID";
 
     @Value("${crypto.coinmixer.house.address.id}")
     private String addressId="House";
@@ -22,12 +22,10 @@ public class HouseAddress extends Address {
     public void setName(String name) { }
 
     @Override
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    @Override
-    public void setUserId(Long ID) {}
 
        @Override
     public String getAddressId() {

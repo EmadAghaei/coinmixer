@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BaseDAO<T> {
-    Optional<T> get(long id);
+    Optional<T> get(Long id);
 
     List<T> getAll();
 

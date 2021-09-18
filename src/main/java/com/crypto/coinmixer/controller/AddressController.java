@@ -2,6 +2,8 @@ package com.crypto.coinmixer.controller;
 
 import com.crypto.coinmixer.service.AddressService;
 import com.crypto.coinmixer.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +18,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
-
+    Logger logger = LoggerFactory.getLogger(AddressController.class);
     @Autowired
     private AddressService addressService;
-
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/getMappedDeposit")
     public ResponseEntity getMappedDeposit(
-            @RequestParam Long userId, @RequestParam String srcAddress, @RequestParam List<String> dstAddress, @RequestParam BigDecimal amount) {
-        if (!userService.isValid(userId, srcAddress))
+            @RequestParam String userId, @RequestParam String srcAddress, @RequestParam List<String> dstAddress, @RequestParam BigDecimal amount) {
+        logger.info("/getMappedDeposit service is called by userId: " + userId + " srcAddress: " + srcAddress);
+        if (!userService.isValid(userId, srcAddress)) {
+            logger.error("UserId" + userId + " called with wrong information");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is wrong");
-        String depositAddress = addressService.getDepositAddress(userId, srcAddress, dstAddress,amount);
+        }
+        String depositAddress = null;
+        try {
+            depositAddress = addressService.getDepositAddress(userId, srcAddress, dstAddress, amount);
+        } catch (InterruptedException e) {
+            logger.error("UserId" + userId + " internal error");
+        }
         return depositAddress != null ? ResponseEntity.ok(depositAddress) : ResponseEntity.notFound().build();
     }
 }

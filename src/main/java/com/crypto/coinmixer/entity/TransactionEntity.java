@@ -1,27 +1,41 @@
-package com.crypto.coinmixer.domain;
+package com.crypto.coinmixer.entity;
 
-import com.crypto.coinmixer.entity.TransactionDestinationEntity;
-import com.crypto.coinmixer.entity.UserEntity;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+
+
+import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Set;
-@Component
-public  class Transaction {
+
+@Entity
+@Table(name="TRANSACTION")
+public class TransactionEntity extends BaseEntity{
     private String depositAddress;
+    private String srcAddress;
     private BigDecimal amount;
     private String status;
     private Instant approvedDate;
     private BigDecimal deniedAmount;
-    @Value("${transaction.fee}")
     private BigDecimal fee;
     private Long approvedNumber;
     private BigDecimal verifiedAmount;
-    private Set<TransactionDestination> transactionDestinationSet;
-    private User user;
-    private String srcAddress;
+
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+    private Set<TransactionDestinationEntity> transactionDestinationEntitySet;
+
+    @ManyToOne
+    @JoinColumn(name ="USER_ID" )
+    private UserEntity userEntity;
+
+    public Set<TransactionDestinationEntity> getTransactionDestinationEntitySet() {
+        return transactionDestinationEntitySet;
+    }
+
+    public void setTransactionDestinationEntitySet(Set<TransactionDestinationEntity> transactionDestinationEntitySet) {
+        this.transactionDestinationEntitySet = transactionDestinationEntitySet;
+    }
+
 
     public String getSrcAddress() {
         return srcAddress;
@@ -29,6 +43,14 @@ public  class Transaction {
 
     public void setSrcAddress(String srcAddress) {
         this.srcAddress = srcAddress;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public String getDepositAddress() {
@@ -93,21 +115,5 @@ public  class Transaction {
 
     public void setVerifiedAmount(BigDecimal verifiedAmount) {
         this.verifiedAmount = verifiedAmount;
-    }
-
-    public Set<TransactionDestination> getTransactionDestinationSet() {
-        return transactionDestinationSet;
-    }
-
-    public void setTransactionDestinationSet(Set<TransactionDestination> transactionDestinationSet) {
-        this.transactionDestinationSet = transactionDestinationSet;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

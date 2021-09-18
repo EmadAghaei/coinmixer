@@ -1,65 +1,57 @@
 package com.crypto.coinmixer.dao;
 
-import com.crypto.coinmixer.domain.SourceAddress;
-import com.crypto.coinmixer.domain.User;
+import com.crypto.coinmixer.entity.UserEntity;
 import org.springframework.stereotype.Component;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 
 
 @Component
-public class UserDAO implements BaseDAO<User> {
-    private List<User> users = new ArrayList<>();
-    // assumed we have data in memory, instead of configuring and getting data from database
+public class UserDAO implements BaseDAO<UserEntity> {
+    private List<UserEntity> users = new ArrayList<>();
+    // todo: assumed we have data in memory, instead of configuring and getting data from database
 
     public UserDAO() {
-        User user1= new User();
-        user1.isActive();
+        // TODO: 9/18/21 filled for demo. They should be removed in the produciton
+        UserEntity user1= new UserEntity();
         user1.setFirstName("Emad");
         user1.setLastName("Aghayi");
-        user1.setID("1234");
-       SourceAddress sourceAddress= new SourceAddress();
-       sourceAddress.setAddressId("eaghayi");
-       sourceAddress.setUserId(1234L);
-        user1.setSrcAddress(sourceAddress);
+        user1.setUserId("eaghayi");
+        user1.setAddressId("EmadAddress");
         users.add(user1);
     }
 
+// todo: for demo it is hardcoded. I didnot want to spend time on DB part and data entry
+
+    public  UserEntity getByUserId(String userId){
+        return users.get(0).getUserId().equals(userId) ? users.get(0):null;
+    }
     @Override
-    public Optional<User> get(long id) {
-        return Optional.ofNullable(users.get((int) id));
+    public Optional<UserEntity> get(Long id) {
+        throw new NotImplementedException();
     }
 
     @Override
-    public List<User> getAll() {
-        return users;
+    public List<UserEntity> getAll() {
+        return null;
     }
 
     @Override
-    public void save(User user) {
-        users.add(user);
+    public void save(UserEntity userEntity) {
+
     }
 
     @Override
-    public void update(User user, String[] params) {
-        user.setFirstName(Objects.requireNonNull(
-                params[0], "Name cannot be null"));
-        user.setLastName(Objects.requireNonNull(
-                params[1], "LastName cannot be null"));
-        user.setID(Objects.requireNonNull(
-                params[1], "ID can not be null"));
+    public void update(UserEntity userEntity, String[] params) {
 
-        users.add(user);
     }
 
     @Override
-    public void delete(User user) {
-        users.remove(user);
+    public void delete(UserEntity userEntity) {
+
     }
-
-
 }
