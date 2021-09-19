@@ -35,7 +35,7 @@ public class AddressController {
         logger.info("/getMappedDeposit service is called by userId: " + userId + " srcAddress: " + srcAddress);
         if (!userService.isValid(userId, srcAddress)) {
             logger.error("UserId" + userId + " called with wrong information");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is wrong");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is invalid.");
         }
         String depositAddress = null;
         try {

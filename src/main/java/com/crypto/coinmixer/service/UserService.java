@@ -1,6 +1,10 @@
 package com.crypto.coinmixer.service;
 
+import com.crypto.coinmixer.dao.TransactionDAO;
 import com.crypto.coinmixer.dao.UserDAO;
+import com.crypto.coinmixer.domain.Transaction;
+import com.crypto.coinmixer.domain.Transfer;
+import com.crypto.coinmixer.entity.TransactionEntity;
 import com.crypto.coinmixer.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +14,8 @@ public class UserService {
 
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private TransactionDAO transactionDAO;
 
     /**
      * check validity of user before processing any anything

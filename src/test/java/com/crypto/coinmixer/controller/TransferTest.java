@@ -1,7 +1,10 @@
 package com.crypto.coinmixer.controller;
 
 import com.crypto.coinmixer.CoinmixerApplication;
+import com.crypto.coinmixer.dao.TransactionDAO;
 import com.crypto.coinmixer.dao.UserDAO;
+import com.crypto.coinmixer.domain.Transfer;
+import com.crypto.coinmixer.entity.TransactionEntity;
 import com.crypto.coinmixer.entity.UserEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,8 +17,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,20 +31,21 @@ import static org.mockito.BDDMockito.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = CoinmixerApplication.class)
 @RunWith(SpringRunner.class)
-public class AddressControllerTest {
+public class TransferTest {
+
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
     private ObjectMapper mapper;
     @MockBean
     private UserDAO userDAO;
+    @MockBean
+    private TransactionDAO transactionDAO;
     @Autowired
     private WebTestClient webTestClient;
+    @Autowired
+    private Transfer transfer;
 
-
-    /*
-    Helper method
-     */
     private HttpEntity<String> getStringHttpEntity(Object object) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -48,20 +54,9 @@ public class AddressControllerTest {
     }
 
     @Test
-    public void welcomeTest() {
-        this.webTestClient
-                .get()
-                .uri("/addresses/welcome")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk();
-    }
-
-    @Test
-    public void createDepositAddressAndStoreTransactions() throws Exception {
+    public void transferToDepositAddresTest() throws Exception {
         String userId = "emadId";
-        String srcAddress = "emadAddress";
-        List<String> dstAddressList = new ArrayList<>(Arrays.asList("david", "thomas"));
+        String srcAddress = "12";
         BigDecimal amount = new BigDecimal(10);
 
         UserEntity userEntity = new UserEntity();
@@ -69,17 +64,22 @@ public class AddressControllerTest {
         userEntity.setAddressId(srcAddress);
         userEntity.setActive(true);
 
-        given(this.userDAO.getByUserId(userId)).willReturn(userEntity);
+        TransactionEntity transactionEntity= new TransactionEntity();
 
-        String getAddress = "/addresses/getMappedDeposit" + "?userId=" + userId + "&srcAddress=" + srcAddress + "&dstAddressList=" + dstAddressList + "&amount=" + amount;
+        given(this.userDAO.getByUserId(userId)).willReturn(userEntity);
+        given(this.transactionDAO.getTansactionByDepositAndUserId(userId,"Bob",amount)).willReturn(transactionEntity);
+
+        String uri = "/transfer/deposit";
+
+        transfer.setSrcAddress(srcAddress);
+        transfer.setDstAddress("Bob");
+        transfer.setAmount(amount);
+        transfer.setUserId(userId);
         this.webTestClient
-                .get()
-                .uri(getAddress)
-                .accept(MediaType.APPLICATION_JSON)
+                .post()
+                .uri(uri)
+                .body(Mono.just(transfer),Transfer.class)
                 .exchange()
                 .expectStatus().isOk();
-
-
     }
-
 }

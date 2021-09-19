@@ -1,10 +1,8 @@
 package com.crypto.coinmixer.service;
 
 import com.crypto.coinmixer.dao.TransactionDAO;
-import com.crypto.coinmixer.domain.Transaction;
-import com.crypto.coinmixer.domain.TransactionDestination;
-import com.crypto.coinmixer.domain.Status;
-import com.crypto.coinmixer.domain.User;
+import com.crypto.coinmixer.domain.*;
+import com.crypto.coinmixer.entity.TransactionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +23,9 @@ public class TransactionService {
     private TransactionDAO transactionDAO;
 
 
-    public void storeInitialTransaction(String userId,String depositAddress, String srcAddress, List<String> dstAddressList, BigDecimal amount, Status initiated) {
+    public synchronized void storeInitialTransaction(String userId,String depositAddress, String srcAddress, List<String> dstAddressList, BigDecimal amount, Status initiated) {
         user.setUserId(userId);
+        user.setLastDepositId(depositAddress);
         transaction.setUser(user);
         transaction.setAmount(amount);
         transaction.setStatus(initiated.name());
@@ -43,6 +42,14 @@ public class TransactionService {
         }
         transactionDAO.save(transaction);
     }
+
+    public boolean checkDepositAddressConsistency(Transfer transfer){
+        TransactionEntity transactionEntity = transactionDAO.getTansactionByDepositAndUserId(transfer.getUserId(),transfer.getDstAddress(),transfer.getAmount());
+        if(transactionEntity !=null) return true;
+        return false;
+    }
+
+
 }
 
 
