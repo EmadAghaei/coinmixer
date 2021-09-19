@@ -1,5 +1,5 @@
 package com.crypto.coinmixer.domain;
 
 public enum Status {
-    INITIATED,PENDING,COMPLETED,CANCELLED;
+    INITIATED,TRANSFERRED_TO_DEPOSIT,COMPLETED,CANCELLED;
 }

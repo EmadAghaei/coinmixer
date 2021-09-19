@@ -32,10 +32,13 @@ public class TransferController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is invalid.");
         }
 
-        if (coinAPI.transferToDeposit(transfer).equals("{\"status\":\"OK\"}")){
+        String apiResponse = coinAPI.transferToDeposit(transfer);
+        if (apiResponse.equals("{\"status\":\"OK\"}")){
+            //update status transaction in database
+            transactionService.updateUserTransferredToDeposit(transfer);
             return  ResponseEntity.ok("Transfer completed Successfully");
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Error");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);
 
     }
 }

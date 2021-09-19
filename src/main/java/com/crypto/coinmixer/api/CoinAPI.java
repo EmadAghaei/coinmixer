@@ -31,8 +31,7 @@ public class CoinAPI {
 
     public String transferToDeposit(Transfer transfer) {
         RestTemplate restTemplate = new RestTemplate();
-        String createPersonUrl="http://jobcoin.gemini.com/exemplify-untagged/api/transactions";
-        restTemplate = new RestTemplate();
+        final String  createPersonUrl="http://jobcoin.gemini.com/exemplify-untagged/api/transactions";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject personJsonObject = new JSONObject();
@@ -43,25 +42,6 @@ public class CoinAPI {
                 new HttpEntity<String>(personJsonObject.toString(), headers);
         String res=  restTemplate.postForObject(createPersonUrl, request, String.class);
         return res;
-//
-//
-//    }
-//    public ResponseEntity<String> transferToDeposit(Transfer transfer) {
-//        RestTemplate restTemplate = new RestTemplate();
-////        Map<String, String> map = new HashMap<>();
-////        map.put("fromAddress=",transfer.getSrcAddress());
-////        map.put("toAddress=",transfer.getDstAddress());
-////        map.put("amount=",transfer.getAmount().toString());
-//        DepositTransfer obj = new DepositTransfer(transfer.getSrcAddress(),transfer.getDstAddress(),transfer.getAmount().toString());
-//
-//        HttpEntity<String> entity = null;
-//        try {
-//            entity = getStringHttpEntity(obj);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        ResponseEntity<String> responseEntity = restTemplate.postForObject(coinUri + "transactions", entity, String.class);
-//        return responseEntity;
     }
 
     private HttpEntity<String> getStringHttpEntity(Object object) throws JsonProcessingException {

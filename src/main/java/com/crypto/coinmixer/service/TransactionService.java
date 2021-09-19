@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class TransactionService {
     private TransactionDAO transactionDAO;
 
 
-    public synchronized void storeInitialTransaction(String userId,String depositAddress, String srcAddress, List<String> dstAddressList, BigDecimal amount, Status initiated) {
+    public synchronized void storeInitialTransaction(String userId, String depositAddress, String srcAddress, List<String> dstAddressList, BigDecimal amount, Status initiated) {
         user.setUserId(userId);
         user.setLastDepositId(depositAddress);
         transaction.setUser(user);
@@ -33,7 +31,7 @@ public class TransactionService {
         transaction.setSrcAddress(srcAddress);
         transaction.setTransactionDestinationSet(new HashSet<>());
         // the rest properies of transaction are null in this stage
-        for(String dstAddress: dstAddressList){
+        for (String dstAddress : dstAddressList) {
             TransactionDestination transactionDestination = new TransactionDestination();
             transactionDestination.setDestinationAddress(dstAddress);
             transactionDestination.setAmount(amount);
@@ -43,10 +41,13 @@ public class TransactionService {
         transactionDAO.save(transaction);
     }
 
-    public boolean checkDepositAddressConsistency(Transfer transfer){
-        TransactionEntity transactionEntity = transactionDAO.getTansactionByDepositAndUserId(transfer.getUserId(),transfer.getDstAddress(),transfer.getAmount());
-        if(transactionEntity !=null) return true;
-        return false;
+    public boolean checkDepositAddressConsistency(Transfer transfer) {
+        TransactionEntity transactionEntity = transactionDAO.getTansactionByDepositAndUserId(transfer.getUserId(), transfer.getDstAddress(), transfer.getAmount());
+        return transactionEntity != null ? true : false;
+    }
+
+    public void updateUserTransferredToDeposit(Transfer transfer) {
+        transactionDAO.updateStatus(Status.TRANSFERRED_TO_DEPOSIT.name(),transfer);
     }
 
 

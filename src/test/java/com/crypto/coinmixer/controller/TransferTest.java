@@ -57,7 +57,7 @@ public class TransferTest {
     public void transferToDepositAddresTest() throws Exception {
         String userId = "emadId";
         String srcAddress = "12";
-        BigDecimal amount = new BigDecimal(10);
+        BigDecimal amount = new BigDecimal(1);
 
         UserEntity userEntity = new UserEntity();
         userEntity.setUserId(userId);
