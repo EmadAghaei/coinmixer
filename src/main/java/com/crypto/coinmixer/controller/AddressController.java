@@ -24,9 +24,14 @@ public class AddressController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/welcome")
+    public String welcome(){
+        return "Hello";
+    }
+
     @GetMapping("/getMappedDeposit")
     public ResponseEntity getMappedDeposit(
-            @RequestParam String userId, @RequestParam String srcAddress, @RequestParam List<String> dstAddress, @RequestParam BigDecimal amount) {
+            @RequestParam String userId, @RequestParam String srcAddress, @RequestParam List<String> dstAddressList, @RequestParam BigDecimal amount) {
         logger.info("/getMappedDeposit service is called by userId: " + userId + " srcAddress: " + srcAddress);
         if (!userService.isValid(userId, srcAddress)) {
             logger.error("UserId" + userId + " called with wrong information");
@@ -34,7 +39,7 @@ public class AddressController {
         }
         String depositAddress = null;
         try {
-            depositAddress = addressService.getDepositAddress(userId, srcAddress, dstAddress, amount);
+            depositAddress = addressService.getDepositAddress(userId, srcAddress, dstAddressList, amount);
         } catch (InterruptedException e) {
             logger.error("UserId" + userId + " internal error");
         }

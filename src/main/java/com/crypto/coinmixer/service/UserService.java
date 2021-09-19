@@ -20,7 +20,7 @@ public class UserService {
      */
     public boolean isValid(String userId, String srcAddress) {
         UserEntity user = userDAO.getByUserId(userId);
-        return user !=null && user.isActive() && user.getAddressId() == srcAddress;
+        return user !=null && user.isActive() && user.getAddressId().equals(srcAddress);
     }
 
 }
