@@ -1,6 +1,6 @@
 package com.crypto.coinmixer.controller;
 
-import com.crypto.coinmixer.api.CoinAPI;
+import com.crypto.coinmixer.service.api.CoinAPI;
 import com.crypto.coinmixer.domain.Transfer;
 import com.crypto.coinmixer.service.TransactionService;
 import com.crypto.coinmixer.service.UserService;
@@ -32,10 +32,10 @@ public class TransferController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is invalid.");
         }
 
-        String apiResponse = coinAPI.transferToDeposit(transfer);
+        String apiResponse = coinAPI.singleTransfer(transfer);
         if (apiResponse.equals("{\"status\":\"OK\"}")){
             //update status transaction in database
-            transactionService.updateUserTransferredToDeposit(transfer);
+            transactionService.updateStatusOfTransactionToDeposit(transfer);
             return  ResponseEntity.ok("Transfer completed Successfully");
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);

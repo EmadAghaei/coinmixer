@@ -46,9 +46,10 @@ public class TransactionService {
         return transactionEntity != null ? true : false;
     }
 
-    public void updateUserTransferredToDeposit(Transfer transfer) {
+    public void updateStatusOfTransactionToDeposit(Transfer transfer) {
         transactionDAO.updateStatus(Status.TRANSFERRED_TO_DEPOSIT.name(),transfer);
     }
+
 
 
 }

@@ -12,26 +12,13 @@ public class HouseAddress extends Address {
     @Value("${crypto.coinmixer.house.address.id}")
     private String addressId="House";
 
-
     @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) { }
-
-    @Override
-    public String getUserId() {
-        return userId;
-    }
-
-
-       @Override
     public String getAddressId() {
         return addressId;
     }
 
     @Override
-    public void setAddressId(String addressId) { }
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
 }

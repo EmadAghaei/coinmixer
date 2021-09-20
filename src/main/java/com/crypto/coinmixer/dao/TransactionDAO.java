@@ -1,6 +1,7 @@
 package com.crypto.coinmixer.dao;
 
 import com.crypto.coinmixer.domain.Status;
+import com.crypto.coinmixer.domain.Transaction;
 import com.crypto.coinmixer.domain.Transfer;
 import com.crypto.coinmixer.entity.TransactionEntity;
 import org.hibernate.Criteria;
@@ -58,5 +59,16 @@ public class TransactionDAO implements BaseDAO{
         TransactionEntity transactionEntity = getTansactionByDepositAndUserId(transfer.getUserId(), transfer.getDstAddress(),transfer.getAmount());
         transactionEntity.setStatus(TRANSFERRED_TO_DEPOSIT);
         HibernateConfiguration.getCurrentSession().saveOrUpdate(transactionEntity);
+    }
+
+    public List<Transaction> findAllTransactionByStatus(String status) {
+        Criteria crit = HibernateConfiguration.getCurrentSession().createCriteria(TransactionEntity.class);
+        crit.add(Restrictions.eq("status",status));
+       return crit.list();
+    }
+
+    public void updateStatusOfTransactionToHouse(Transaction transaction) {
+
+        HibernateConfiguration.getCurrentSession().saveOrUpdate(transaction);
     }
 }

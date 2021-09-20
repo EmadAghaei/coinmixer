@@ -1,6 +1,5 @@
-package com.crypto.coinmixer.api;
+package com.crypto.coinmixer.service.api;
 
-import com.crypto.coinmixer.domain.DepositTransfer;
 import com.crypto.coinmixer.domain.Transfer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,12 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 @Service
@@ -29,7 +24,7 @@ public class CoinAPI {
     private ObjectMapper mapper;
 
 
-    public String transferToDeposit(Transfer transfer) {
+    public String singleTransfer(Transfer transfer) {
         RestTemplate restTemplate = new RestTemplate();
         final String  createPersonUrl="http://jobcoin.gemini.com/exemplify-untagged/api/transactions";
         HttpHeaders headers = new HttpHeaders();

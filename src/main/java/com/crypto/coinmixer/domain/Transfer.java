@@ -10,6 +10,15 @@ public class Transfer {
     private String dstAddress;
     private BigDecimal amount;
     private String userId;
+    private BigDecimal fee;
+
+    public BigDecimal getFee() {
+        return fee;
+    }
+
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
+    }
 
     public String getSrcAddress() {
         return srcAddress;
