@@ -22,23 +22,7 @@ public class TransactionService {
 
 
     public synchronized void storeInitialTransaction(String userId, String depositAddress, String srcAddress, List<String> dstAddressList, BigDecimal amount, Status initiated) {
-        user.setUserId(userId);
-        user.setLastDepositId(depositAddress);
-        transaction.setUser(user);
-        transaction.setAmount(amount);
-        transaction.setStatus(initiated.name());
-        transaction.setDepositAddress(depositAddress);
-        transaction.setSrcAddress(srcAddress);
-        transaction.setTransactionDestinationSet(new HashSet<>());
-        // the rest properies of transaction are null in this stage
-        for (String dstAddress : dstAddressList) {
-            TransactionDestination transactionDestination = new TransactionDestination();
-            transactionDestination.setDestinationAddress(dstAddress);
-            transactionDestination.setAmount(amount);
-            transactionDestination.setStatus(initiated.name());
-            transaction.getTransactionDestinationSet().add(transactionDestination);
-        }
-        transactionDAO.save(transaction);
+        transactionDAO.saveInitialTransaction(userId,depositAddress,srcAddress,dstAddressList,amount,initiated);
     }
 
     public boolean checkDepositAddressConsistency(Transfer transfer) {

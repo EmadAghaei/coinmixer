@@ -15,10 +15,35 @@ public class TransactionDestinationEntity extends BaseEntity{
     private String destinationAddress;
     private BigDecimal amount;
     private String status;
-
-
+    private BigDecimal fee;// fee is in percent
     @OneToMany(mappedBy = "transactionDestinationEntity", cascade = CascadeType.ALL)
     private Set<TransactionToDestinationDetailEntity> transactionToDestinationDetailEntitySet;
+
+
+    // getters and setters
+    public TransactionEntity getTransactionEntity() {
+        return transactionEntity;
+    }
+
+    public void setTransactionEntity(TransactionEntity transactionEntity) {
+        this.transactionEntity = transactionEntity;
+    }
+
+    public BigDecimal getFee() {
+        return fee;
+    }
+
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
+    }
+
+    public Set<TransactionToDestinationDetailEntity> getTransactionToDestinationDetailEntitySet() {
+        return transactionToDestinationDetailEntitySet;
+    }
+
+    public void setTransactionToDestinationDetailEntitySet(Set<TransactionToDestinationDetailEntity> transactionToDestinationDetailEntitySet) {
+        this.transactionToDestinationDetailEntitySet = transactionToDestinationDetailEntitySet;
+    }
 
     public Set<TransactionToDestinationDetailEntity> getTransactionToDestinationDetailSet() {
         return transactionToDestinationDetailEntitySet;

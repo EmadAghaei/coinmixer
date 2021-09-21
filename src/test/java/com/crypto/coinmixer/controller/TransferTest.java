@@ -54,7 +54,7 @@ public class TransferTest {
     }
 
     @Test
-    public void transferToDepositAddresTest() throws Exception {
+    public void transferToDepositAddressTest() throws Exception {
         String userId = "emadId";
         String srcAddress = "12";
         BigDecimal amount = new BigDecimal(1);

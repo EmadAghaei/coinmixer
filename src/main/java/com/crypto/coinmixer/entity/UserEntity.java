@@ -6,14 +6,13 @@ import java.util.Set;
 @Entity
 @Table(name = "USER")
 public class UserEntity extends BaseEntity{
-    @Column(name = "USER_ID",unique = true)
+    @Column(name = "USER_Name",unique = true)
     private String userId;
-
     private String lastName;
     private String firstName;
     private String addressId;
     private String lastDepositId;
-    private boolean active;
+    private boolean active=true;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<TransactionEntity> transactionEntitySet;
 

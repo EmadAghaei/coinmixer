@@ -24,9 +24,12 @@ public class TransactionEntity extends BaseEntity{
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
     private Set<TransactionDestinationEntity> transactionDestinationEntitySet;
 
-    @ManyToOne
-    @JoinColumn(name ="USER_ID" )
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "USER_ID", nullable = false)
     private UserEntity userEntity;
+
+
+    //
 
     public Set<TransactionDestinationEntity> getTransactionDestinationEntitySet() {
         return transactionDestinationEntitySet;

@@ -1,7 +1,6 @@
-package com.crypto.domain;
+package com.crypto.coinmixer.domain;
 
 
-import com.crypto.coinmixer.domain.HouseAddress;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.boot.test.context.SpringBootTest;
