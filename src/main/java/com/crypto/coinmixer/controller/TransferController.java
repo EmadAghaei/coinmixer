@@ -26,7 +26,7 @@ public class TransferController {
     CoinAPI coinAPI;
 
     @PostMapping("/deposit")
-    public ResponseEntity transfer(@RequestBody Transfer transfer) {
+    public ResponseEntity transferCoin(@RequestBody Transfer transfer) {
         if (!userService.isValid(transfer.getUserId(), transfer.getSrcAddress()) || !transactionService.checkDepositAddressConsistency(transfer)) {
             logger.error("UserId" + transfer.getUserId() + " called with wrong information.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is invalid.");

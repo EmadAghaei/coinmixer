@@ -99,8 +99,6 @@ public class AddressControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk();
-
-
     }
 
 }

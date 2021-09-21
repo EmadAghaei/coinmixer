@@ -62,7 +62,6 @@ public class ScheduleServiceTest {
     private void populateTransactionDestination(List<TransactionEntity> mockedTransactions) {
         for(TransactionEntity transaction: mockedTransactions){
 
-
             TransactionDestinationEntity transactionDestinationEntity = new TransactionDestinationEntity();
             transactionDestinationEntity.setAmount(new BigDecimal(1));
             transactionDestinationEntity.setDestinationAddress("Dest1");

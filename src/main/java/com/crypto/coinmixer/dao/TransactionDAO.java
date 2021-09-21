@@ -68,6 +68,11 @@ public class TransactionDAO implements BaseDAO<TransactionEntity>{
 //        HibernateConfiguration.getCurrentSession().saveOrUpdate(transactionEntity);
     }
 
+    public void saveAll(List<TransactionEntity> transactionList) {
+        transactionList.stream().forEach(t ->save(t));
+//        HibernateConfiguration.getCurrentSession().saveOrUpdate(transactionEntity);
+    }
+
     @Override
     public void update(TransactionEntity transactionEntity, String[] params) {
 
@@ -99,6 +104,9 @@ public class TransactionDAO implements BaseDAO<TransactionEntity>{
         }
         save(transaction);
     }
+
+
+
 
 
 }

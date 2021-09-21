@@ -19,7 +19,7 @@ public class TransactionEntity extends BaseEntity{
     private BigDecimal deniedAmount;
     private BigDecimal fee;
     private Long approvedNumber;
-    private BigDecimal verifiedAmount;
+    private BigDecimal verifiedAmountTransferredToDeposit;
 
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
     private Set<TransactionDestinationEntity> transactionDestinationEntitySet;
@@ -112,11 +112,11 @@ public class TransactionEntity extends BaseEntity{
         this.approvedNumber = approvedNumber;
     }
 
-    public BigDecimal getVerifiedAmount() {
-        return verifiedAmount;
+    public BigDecimal getVerifiedAmountTransferredToDeposit() {
+        return verifiedAmountTransferredToDeposit;
     }
 
-    public void setVerifiedAmount(BigDecimal verifiedAmount) {
-        this.verifiedAmount = verifiedAmount;
+    public void setVerifiedAmountTransferredToDeposit(BigDecimal verifiedAmountTransferredToDeposit) {
+        this.verifiedAmountTransferredToDeposit = verifiedAmountTransferredToDeposit;
     }
 }

@@ -30,32 +30,28 @@ public class CoinAPI {
 
     public String singleTransfer(Transfer transfer) {
 
-        final String createPersonUrl = "http://jobcoin.gemini.com/exemplify-untagged/api/transactions";
+        final String transferUrl = "http://jobcoin.gemini.com/exemplify-untagged/api/transactions";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject personJsonObject = new JSONObject();
         personJsonObject.put("fromAddress", transfer.getSrcAddress());
         personJsonObject.put("toAddress", transfer.getDstAddress());
         personJsonObject.put("amount", transfer.getAmount());
-        HttpEntity<String> request =
-                new HttpEntity<String>(personJsonObject.toString(), headers);
-        String res = new RestTemplate().postForObject(createPersonUrl, request, String.class);
+        HttpEntity<String> request = new HttpEntity<String>(personJsonObject.toString(), headers);
+        String res = new RestTemplate().postForObject(transferUrl, request, String.class);
         return res;
     }
 
-    public Map<String, Object> balanceAndTransactions(String sourceId) {
+    public Map<String, Object> balanceAndTransactions(String address) {
         final String stringUrl="http://jobcoin.gemini.com/exemplify-untagged/api/addresses/";
-        String response = new RestTemplate().getForEntity(stringUrl + sourceId, String.class).getBody();
+        String response = new RestTemplate().getForEntity(stringUrl + address, String.class).getBody();
         Map<String, Object> resultObj=null;
         try {
             resultObj = mapper.readValue(response, new TypeReference<Map<String,Object>>(){});
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(resultObj);
-
         return resultObj;
-
     }
 
 }

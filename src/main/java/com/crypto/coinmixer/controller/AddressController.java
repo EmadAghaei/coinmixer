@@ -51,13 +51,13 @@ public class AddressController {
     }
 
     @GetMapping("/balanceAndHistory")
-    public ResponseEntity getBalanceAndHistory(@RequestParam String userId, @RequestParam String srcAddress) {
-        logger.info("/balance service is called by userId: " + userId + " srcAddress: " + srcAddress);
-        if (!userService.isValid(userId, srcAddress)) {
+    public ResponseEntity getBalanceAndHistory(@RequestParam String userId, @RequestParam String address) {
+        logger.info("/balance service is called by userId: " + userId + " srcAddress: " + address);
+        if (!userService.isValid(userId, address)) {
             logger.error("UserId" + userId + " called with wrong information");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is invalid.");
         }
-        Map<String, Object> apiResponse = coinAPI.balanceAndTransactions(srcAddress);
+        Map<String, Object> apiResponse = coinAPI.balanceAndTransactions(address);
         if (apiResponse.equals("{\"status\":\"OK\"}")){
             return  ResponseEntity.ok(apiResponse);
         }
