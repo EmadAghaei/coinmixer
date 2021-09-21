@@ -26,19 +26,21 @@ public class TransactionDAO implements BaseDAO<TransactionEntity>{
 
 
     public TransactionEntity getTansactionByDepositAndUserId(String userId, String depositAddress, BigDecimal amount) {
-        Criteria crit = HibernateConfiguration.getCurrentSession().createCriteria(TransactionEntity.class);
-        crit.add(Restrictions.eq("amount",amount));
-        crit.add(Restrictions.eq("depositAddress",depositAddress));
-        crit.createCriteria("userEntity").add(Restrictions.eq("userId", userId));
-        List<TransactionEntity> results = crit.list();
-        if(results.size()>1) return null;
-        return results.get(0);
+        return new TransactionEntity();// TODO: 9/20/21 Uncomment the below code after adding DB
+//        Criteria crit = HibernateConfiguration.getCurrentSession().createCriteria(TransactionEntity.class);
+//        crit.add(Restrictions.eq("amount",amount));
+//        crit.add(Restrictions.eq("depositAddress",depositAddress));
+//        crit.createCriteria("userEntity").add(Restrictions.eq("userId", userId));
+//        List<TransactionEntity> results = crit.list();
+//        if(results.size()>1) return null;
+//        return results.get(0);
     }
 
     public void updateStatus(String TRANSFERRED_TO_DEPOSIT, Transfer transfer) {
-        TransactionEntity transactionEntity = getTansactionByDepositAndUserId(transfer.getUserId(), transfer.getDstAddress(),transfer.getAmount());
-        transactionEntity.setStatus(TRANSFERRED_TO_DEPOSIT);
-        HibernateConfiguration.getCurrentSession().saveOrUpdate(transactionEntity);
+        // TODO: 9/20/21 uncoment after DB
+//        TransactionEntity transactionEntity = getTansactionByDepositAndUserId(transfer.getUserId(), transfer.getDstAddress(),transfer.getAmount());
+//        transactionEntity.setStatus(TRANSFERRED_TO_DEPOSIT);
+//        HibernateConfiguration.getCurrentSession().saveOrUpdate(transactionEntity);
     }
 
     public List<TransactionEntity> findAllTransactionByStatus(String status) {
@@ -63,7 +65,7 @@ public class TransactionDAO implements BaseDAO<TransactionEntity>{
 
     @Override
     public void save(TransactionEntity transactionEntity) {
-        HibernateConfiguration.getCurrentSession().saveOrUpdate(transactionEntity);
+//        HibernateConfiguration.getCurrentSession().saveOrUpdate(transactionEntity);
     }
 
     @Override

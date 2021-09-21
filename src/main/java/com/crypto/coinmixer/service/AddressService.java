@@ -15,7 +15,6 @@ public class AddressService {
 
     public String getDepositAddress(String userId, String srcAddress, List<String> dstAddressList, BigDecimal amount) throws InterruptedException {
         String depositAddress = RandomUtil.createRandomAlphaNumeric();// TODO: 9/18/21  I assumed it for simplicity. I have to change it later. I  do know how you are building addresses. Is that kind of private key?!
-        transactionService.storeInitialTransaction(userId, depositAddress, srcAddress, dstAddressList, amount, Status.INITIATED);
         return depositAddress;
 
     }

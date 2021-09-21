@@ -2,6 +2,7 @@ package com.crypto.coinmixer.service.api;
 
 import com.crypto.coinmixer.domain.Transfer;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
@@ -10,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
 
 
 @Service
@@ -25,8 +29,8 @@ public class CoinAPI {
 
 
     public String singleTransfer(Transfer transfer) {
-        RestTemplate restTemplate = new RestTemplate();
-        final String  createPersonUrl="http://jobcoin.gemini.com/exemplify-untagged/api/transactions";
+
+        final String createPersonUrl = "http://jobcoin.gemini.com/exemplify-untagged/api/transactions";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject personJsonObject = new JSONObject();
@@ -35,17 +39,23 @@ public class CoinAPI {
         personJsonObject.put("amount", transfer.getAmount());
         HttpEntity<String> request =
                 new HttpEntity<String>(personJsonObject.toString(), headers);
-        String res=  restTemplate.postForObject(createPersonUrl, request, String.class);
+        String res = new RestTemplate().postForObject(createPersonUrl, request, String.class);
         return res;
     }
 
-    private HttpEntity<String> getStringHttpEntity(Object object) throws JsonProcessingException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String jsonMeterData = mapper.writeValueAsString(object);
-        return (HttpEntity<String>) new HttpEntity(jsonMeterData, headers);
+    public Map<String, Object> balanceAndTransactions(String sourceId) {
+        final String stringUrl="http://jobcoin.gemini.com/exemplify-untagged/api/addresses/";
+        String response = new RestTemplate().getForEntity(stringUrl + sourceId, String.class).getBody();
+        Map<String, Object> resultObj=null;
+        try {
+            resultObj = mapper.readValue(response, new TypeReference<Map<String,Object>>(){});
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(resultObj);
+
+        return resultObj;
+
     }
-
-
 
 }

@@ -31,7 +31,7 @@ import static org.mockito.BDDMockito.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = CoinmixerApplication.class)
 @RunWith(SpringRunner.class)
-public class TransferTest {
+public class TransferControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;

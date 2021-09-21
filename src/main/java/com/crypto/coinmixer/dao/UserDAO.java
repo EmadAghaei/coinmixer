@@ -15,7 +15,7 @@ import java.util.Optional;
 public class UserDAO implements BaseDAO<UserEntity> {
 
 
-    public  UserEntity getByUserId(String userId){
+    public UserEntity getByUserId(String userId){
         throw new NotImplementedException();
     }
     @Override

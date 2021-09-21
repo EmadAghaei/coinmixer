@@ -71,7 +71,28 @@ public class AddressControllerTest {
 
         given(this.userDAO.getByUserId(userId)).willReturn(userEntity);
 
-        String getAddress = "/addresses/getMappedDeposit" + "?userId=" + userId + "&srcAddress=" + srcAddress + "&dstAddressList=" + dstAddressList + "&amount=" + amount;
+        String getAddress = "/addresses/deposit" + "?userId=" + userId + "&srcAddress=" + srcAddress + "&dstAddressList=" + dstAddressList + "&amount=" + amount;
+        this.webTestClient
+                .get()
+                .uri(getAddress)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk();
+
+
+    }
+
+    @Test
+    public void getBalanceAndHistoryTest() throws Exception {
+        String userId = "emadId";
+        String srcAddress = "emadAddress";
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        userEntity.setAddressId(srcAddress);
+        userEntity.setActive(true);
+        given(this.userDAO.getByUserId(userId)).willReturn(userEntity);
+
+        String getAddress = "/addresses/balanceAndHistory" + "?userId=" + userId + "&srcAddress=" + srcAddress;
         this.webTestClient
                 .get()
                 .uri(getAddress)

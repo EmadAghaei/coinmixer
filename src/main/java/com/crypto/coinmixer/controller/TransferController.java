@@ -31,7 +31,6 @@ public class TransferController {
             logger.error("UserId" + transfer.getUserId() + " called with wrong information.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user information is invalid.");
         }
-
         String apiResponse = coinAPI.singleTransfer(transfer);
         if (apiResponse.equals("{\"status\":\"OK\"}")){
             //update status transaction in database
@@ -39,6 +38,5 @@ public class TransferController {
             return  ResponseEntity.ok("Transfer completed Successfully");
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);
-
     }
 }
