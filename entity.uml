@@ -3,46 +3,71 @@
   <ID>JAVA</ID>
   <OriginalElement>com.crypto.coinmixer.entity</OriginalElement>
   <nodes>
-    <node x="1355.0" y="194.0">com.crypto.coinmixer.entity.TransactionEntity</node>
-    <node x="583.0" y="237.5">com.crypto.coinmixer.entity.UserEntity</node>
-    <node x="856.5" y="0.0">com.crypto.coinmixer.entity.BaseEntity</node>
-    <node x="927.0" y="271.0">com.crypto.coinmixer.entity.TransactionToDestinationDetailEntity</node>
-    <node x="0.0" y="237.5">com.crypto.coinmixer.entity.TransactionDestinationEntity</node>
+    <node x="0.0" y="215.0">com.crypto.coinmixer.entity.TransactionEntity</node>
+    <node x="146.5" y="0.0">com.crypto.coinmixer.entity.UserEntity</node>
+    <node x="486.0" y="292.0">com.crypto.coinmixer.entity.TransactionToDestinationDetailEntity</node>
+    <node x="172.75" y="550.0">com.crypto.coinmixer.entity.TransactionDestinationEntity</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="com.crypto.coinmixer.entity.TransactionToDestinationDetailEntity" target="com.crypto.coinmixer.entity.BaseEntity" relationship="GENERALIZATION">
-      <point x="0.0" y="-72.0" />
-      <point x="1131.0" y="169.0" />
-      <point x="938.0" y="169.0" />
-      <point x="0.0" y="72.0" />
+    <edge source="com.crypto.coinmixer.entity.TransactionToDestinationDetailEntity" target="com.crypto.coinmixer.entity.TransactionDestinationEntity" relationship="DEPENDENCY">
+      <point x="0.0" y="60.5" />
+      <point x="235.75" y="-104.5" />
     </edge>
-    <edge source="com.crypto.coinmixer.entity.TransactionEntity" target="com.crypto.coinmixer.entity.BaseEntity" relationship="GENERALIZATION">
-      <point x="0.0" y="-149.0" />
-      <point x="1588.0" y="169.0" />
-      <point x="938.0" y="169.0" />
-      <point x="0.0" y="72.0" />
+    <edge source="com.crypto.coinmixer.entity.TransactionDestinationEntity" target="com.crypto.coinmixer.entity.TransactionToDestinationDetailEntity" relationship="DEPENDENCY">
+      <point x="250.75" y="-104.5" />
+      <point x="15.0" y="60.5" />
     </edge>
-    <edge source="com.crypto.coinmixer.entity.TransactionDestinationEntity" target="com.crypto.coinmixer.entity.BaseEntity" relationship="GENERALIZATION">
-      <point x="0.0" y="-105.5" />
-      <point x="281.5" y="169.0" />
-      <point x="938.0" y="169.0" />
-      <point x="0.0" y="72.0" />
+    <edge source="com.crypto.coinmixer.entity.UserEntity" target="com.crypto.coinmixer.entity.TransactionEntity" relationship="TO_MANY">
+      <point x="0.0" y="82.5" />
+      <point x="0.0" y="-137.5" />
     </edge>
-    <edge source="com.crypto.coinmixer.entity.UserEntity" target="com.crypto.coinmixer.entity.BaseEntity" relationship="GENERALIZATION">
-      <point x="0.0" y="-105.5" />
-      <point x="745.0" y="169.0" />
-      <point x="938.0" y="169.0" />
-      <point x="0.0" y="72.0" />
+    <edge source="com.crypto.coinmixer.entity.TransactionEntity" target="com.crypto.coinmixer.entity.TransactionDestinationEntity" relationship="DEPENDENCY">
+      <point x="0.0" y="137.5" />
+      <point x="233.0" y="520.0" />
+      <point x="454.25" y="520.0" />
+      <point x="0.0" y="-104.5" />
+    </edge>
+    <edge source="com.crypto.coinmixer.entity.TransactionDestinationEntity" target="com.crypto.coinmixer.entity.TransactionEntity" relationship="DEPENDENCY">
+      <point x="-251.25" y="-104.5" />
+      <point x="-30.0" y="137.5" />
+    </edge>
+    <edge source="com.crypto.coinmixer.entity.TransactionDestinationEntity" target="com.crypto.coinmixer.entity.TransactionToDestinationDetailEntity" relationship="TO_MANY">
+      <point x="220.75" y="-104.5" />
+      <point x="-15.0" y="60.5" />
+    </edge>
+    <edge source="com.crypto.coinmixer.entity.TransactionDestinationEntity" target="com.crypto.coinmixer.entity.TransactionEntity" relationship="TO_ONE">
+      <point x="-236.25" y="-104.5" />
+      <point x="-15.0" y="137.5" />
+    </edge>
+    <edge source="com.crypto.coinmixer.entity.TransactionEntity" target="com.crypto.coinmixer.entity.UserEntity" relationship="TO_ONE">
+      <point x="-15.0" y="-137.5" />
+      <point x="-15.0" y="82.5" />
+    </edge>
+    <edge source="com.crypto.coinmixer.entity.TransactionEntity" target="com.crypto.coinmixer.entity.UserEntity" relationship="DEPENDENCY">
+      <point x="-30.0" y="-137.5" />
+      <point x="-30.0" y="82.5" />
+    </edge>
+    <edge source="com.crypto.coinmixer.entity.UserEntity" target="com.crypto.coinmixer.entity.TransactionEntity" relationship="DEPENDENCY">
+      <point x="22.5" y="82.5" />
+      <point x="22.5" y="-137.5" />
+    </edge>
+    <edge source="com.crypto.coinmixer.entity.TransactionEntity" target="com.crypto.coinmixer.entity.TransactionDestinationEntity" relationship="TO_MANY">
+      <point x="233.0" y="129.0" />
+      <point x="493.5" y="481.5" />
+      <point x="39.25" y="-104.5" />
+    </edge>
+    <edge source="com.crypto.coinmixer.entity.TransactionToDestinationDetailEntity" target="com.crypto.coinmixer.entity.TransactionDestinationEntity" relationship="TO_ONE">
+      <point x="30.0" y="60.5" />
+      <point x="265.75" y="-104.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.7430744160782183" showDependencies="false" x="910.5" y="223.0" />
-  <SelectedNodes />
+  <settings layout="Hierarchic" zoom="0.6611039794608472" showDependencies="true" x="447.0" y="379.5" />
+  <SelectedNodes>
+    <node>com.crypto.coinmixer.entity.TransactionToDestinationDetailEntity</node>
+  </SelectedNodes>
   <Categories>
-    <Category>Constructors</Category>
-    <Category>Fields</Category>
     <Category>Inner Classes</Category>
-    <Category>Methods</Category>
     <Category>Properties</Category>
   </Categories>
   <SCOPE>All</SCOPE>

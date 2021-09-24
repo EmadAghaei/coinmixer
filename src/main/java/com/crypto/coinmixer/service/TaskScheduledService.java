@@ -88,6 +88,13 @@ public class TaskScheduledService {
         LOG.info("Task of transferring from deposit to house completed");
     }
 
+    /**
+     * a helper method for transfer coin
+     * @param from
+     * @param to
+     * @param amount
+     * @return
+     */
     private String transferAmount(String from, String to, BigDecimal amount) {
         Transfer transfer = new Transfer();
         transfer.setSrcAddress(from);
@@ -98,7 +105,8 @@ public class TaskScheduledService {
     }
 
     /**
-     * transferring from house to destinations
+     * transferring from house to destinations. It transfers the coin and add a row to the TransacrtionDestinationDetail table.
+     * It uses a random approach to transfer the amount in random way which it helps to keep the privacy.
      */
     @Scheduled(fixedDelay = 1000)
     @Transactional
@@ -109,8 +117,6 @@ public class TaskScheduledService {
             for (TransactionDestinationEntity destinationObj : transaction.getTransactionDestinationEntitySet()) {
                 BigDecimal amountAfterFee = destinationObj.getAmount().subtract(destinationObj.getAmount().multiply(destinationObj.getFee().divide(new BigDecimal(100))));
                 BigDecimal amountToPay = amountAfterFee;// amount -(amount * (fee/100))
-//                BigDecimal increments = new BigDecimal(0.01);
-                // todo : I assumed it transfers in random percent of the amount each time.
                 int prevPercent = 100;
                 for (int i = 0; i <= 5; i++) {
                     if (prevPercent <= 20) break;
@@ -127,14 +133,6 @@ public class TaskScheduledService {
                         transactionToDestinationDetailDAO.updateDestinationsDetails(destinationObj, increment);
                     }
                 }
-//                while (amountToPay.compareTo(increments) > 0) {
-//                    String transferResult = transferAmount(houseAddress.getAddressId(), destinationObj.getDestinationAddress(), increments); // pay 0.01
-//                    amountToPay = amountToPay.subtract(increments);
-//                    if (transferResult.equals("{\"status\":\"OK\"}")) {
-//                        destinationObj.setStatus(Status.TRANSFERRED_TO_DESTINATIONS_SUCCESSFULLY.name());
-//                        transactionToDestinationDetailDAO.updateDestinationsDetails(destinationObj, increments);
-//                    }
-//                }
                 // last transaction. It is possible the left amount be less than 'increaments'
                 String transferResult = transferAmount(houseAddress.getAddressId(), destinationObj.getDestinationAddress(), amountToPay); // pay rest
                 if (transferResult.equals("{\"status\":\"OK\"}")) {

@@ -13,6 +13,15 @@ public class AddressService {
     @Autowired
     private TransactionService transactionService;
 
+    /**
+     * it create a unique deposit address for the user.
+     * @param userId
+     * @param srcAddress
+     * @param dstAddressList
+     * @param amount
+     * @return
+     * @throws InterruptedException
+     */
     public String getDepositAddress(String userId, String srcAddress, List<String> dstAddressList, BigDecimal amount) throws InterruptedException {
         String depositAddress = RandomUtil.createRandomAlphaNumeric();// TODO: 9/18/21  I assumed it for simplicity. I have to change it later. I  do know how you are building addresses. Is that kind of private key?!
         return depositAddress;

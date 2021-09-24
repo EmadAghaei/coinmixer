@@ -69,7 +69,7 @@ public class TransferControllerTest {
         given(this.userDAO.getByUserId(userId)).willReturn(userEntity);
         given(this.transactionDAO.getTansactionByDepositAndUserId(userId,"Bob",amount)).willReturn(transactionEntity);
 
-        String uri = "/transfer/deposit";
+        String uri = "/transfer/coin";
 
         transfer.setSrcAddress(srcAddress);
         transfer.setDstAddress("Bob");

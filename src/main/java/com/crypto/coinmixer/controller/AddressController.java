@@ -32,6 +32,16 @@ public class AddressController {
     @Autowired
     private CoinAPI coinAPI;
 
+
+    /**
+     * t check the user to be valid. Then create a unique deposit address for each user and store a transaction for the user.
+     *
+     * @param userId
+     * @param srcAddress
+     * @param dstAddressList
+     * @param amount
+     * @return
+     */
     @GetMapping("/deposit")
     public ResponseEntity getMappedDeposit(
             @RequestParam String userId, @RequestParam String srcAddress, @RequestParam List<String> dstAddressList, @RequestParam BigDecimal amount) {
@@ -43,6 +53,7 @@ public class AddressController {
         String depositAddress = null;
         try {
             depositAddress = addressService.getDepositAddress(userId, srcAddress, dstAddressList, amount);
+            // it saves the transaction with its destinatins
             transactionService.storeInitialTransaction(userId, depositAddress, srcAddress, dstAddressList, amount, Status.INITIATED);
         } catch (InterruptedException e) {
             logger.error("UserId" + userId + " internal error");
@@ -50,6 +61,12 @@ public class AddressController {
         return depositAddress != null ? ResponseEntity.ok(depositAddress) : ResponseEntity.notFound().build();
     }
 
+    /**
+     * it is wrapper on top of transfer API.
+     * @param userId
+     * @param address
+     * @return
+     */
     @GetMapping("/balanceAndHistory")
     public ResponseEntity getBalanceAndHistory(@RequestParam String userId, @RequestParam String address) {
         logger.info("/balance service is called by userId: " + userId + " srcAddress: " + address);

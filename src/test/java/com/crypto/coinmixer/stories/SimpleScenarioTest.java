@@ -96,7 +96,7 @@ public class SimpleScenarioTest {
         TransactionEntity transactionEntity = new TransactionEntity();
         given(this.userDAO.getByUserId(userId)).willReturn(createUserObj());
         given(this.transactionDAO.getTansactionByDepositAndUserId(userId, depositAddress, amount)).willReturn(transactionEntity);
-        String uri = "/transfer/deposit";
+        String uri = "/transfer/coin";
         String res = coinAPI.singleTransfer(createTransferObj(depositAddress, houseAddress.getAddressId(), new BigDecimal(1)));
         assertEquals(res, "{\"status\":\"OK\"}");
     }
